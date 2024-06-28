@@ -3,12 +3,19 @@ package com.todo.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 @SpringBootApplication
 public class DemoApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		SpringApplication.run(DemoApplication.class, args);
-		T e = new T(1, 1, "Mary", "Jane", 3);
+		Connection connection = Database.getConnection();
+
+		if (connection != null) {
+			System.out.println("connected");
+		}
 	}
 
 }
