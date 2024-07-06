@@ -1,11 +1,9 @@
 package com.todo.demo;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
-    private static String url = "jdbc:postgresql://localhost:5432/first";
+    private static String url = "jdbc:postgresql://localhost:5432/dao";
     private static String username = "postgres";
     private static String password = "postgres";
 
@@ -14,5 +12,41 @@ public class Database {
         connection = DriverManager.getConnection(url, username, password);
 
         return connection;
+    }
+
+    public static void closeConnection(Connection connection) {
+
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException exception) {
+            // exception.printStackTrace();
+        }
+
+    }
+
+    public static void closeStatement(Statement statement) {
+
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException exception) {
+            // exception.printStackTrace();
+        }
+
+    }
+
+    public static void closeResultSet(ResultSet resultSet) {
+
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        } catch (SQLException exception) {
+            // exception.printStackTrace();
+        }
+
     }
 }

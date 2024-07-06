@@ -16,6 +16,12 @@ public class DemoApplication {
 		if (connection != null) {
 			System.out.println("connected");
 		}
+
+		EmployeeDAO employeeDAO = new EmployeeDaoImplementation();
+
+		Employee e = employeeDAO.get(1);
+
+		System.out.println(e);
 	}
 
 }
