@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>To do application</h1>
+    <form th:action="@{/todo}" method="get" class="t">
+        <li>Task name: <input type="text" name="task" id=""></li>
+        <li>Email name: <input type="email" name="email" id=""></li>
+        <input type="submit" value="Submit the task">
+    </form>
+    <div>
+        <p>Show current todo</p>
+        <ul th:each="todo : ${nTodo}">
+            <li><span>this todo: </span><span th:text="${todo}"></span></li>
+        </ul>
+    </div>
+
+    <hr>
+    <a th:href="@{/second}">To second</a>
+
+    <hr>
+
+</body>
+</html>
