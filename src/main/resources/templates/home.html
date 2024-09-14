@@ -7,25 +7,71 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .finished {
+            text-decoration-line: line-through;
+        }
+    </style>
 </head>
 <body>
-    <h1>To do application</h1>
-    <form th:action="@{/todo}" method="get" class="t">
-        <li>Task name: <input type="text" name="task" id=""></li>
-        <li>Email name: <input type="email" name="email" id=""></li>
-        <input type="submit" value="Submit the task">
-    </form>
-    <div>
-        <p>Show current todo</p>
-        <ul th:each="todo : ${nTodo}">
-            <li><span>this todo: </span><span th:text="${todo}"></span></li>
-        </ul>
-    </div>
+<h1>To do application</h1>
+<p>Add to do</p>
+<form th:action="@{/todo/add}" method="post" class="t">
+    <li>Task name: <input type="text" name="taskName" id=""></li>
+    <!--        <li>Email name: <input type="email" name="email" id=""></li>-->
+    <input type="submit" value="Submit the task">
+</form>
 
-    <hr>
-    <a th:href="@{/second}">To second</a>
+<p>Find to do</p>
+<form th:action="@{/todo/find}" method="get">
+    <li>Id of Task to find: <input type="text" name="taskId" id="" /></li>
+    <li th:if="${todoFound}">Found a todo: <span th:text="${todoFound}"></span></li>
+    <li th:if="!${todoFound}">Not Found a todo with that id</li>
+    <input type="submit" value="Find to do">
+</form>
 
-    <hr>
+<p>Update to do</p>
+<form th:action="@{/todo/update}" method="post" th:object="${todo}">
+    <li>Id of Task to update: <input type="number" name="taskId" id="" /></li>
+    <li>New Value of Task to update: <input type="text" name="taskName" id="" /></li>
+<!--    <li th:if="${#fields.hasErrors('taskName')}">Error in setting new name value</li>-->
+<!--    <ul>-->
+<!--        <li th:each="error : ${#fields.errors('todo.*')}" th:text="${error}" />-->
+<!--    </ul>-->
+    <li th:text="${todo}"></li>
+    <li>New Status of Task to update: <input type="text" name="status" id="" /></li>
+    <input type="submit" value="Update to do with new value">
+</form>
+
+
+<div>
+    <p>List of todos: </p>
+    <ul th:each="todo : ${preMadeTodos}">
+        <li th:if="${todo.status == 'COMPLETE'}" class="item finished">Todo Object: <span
+                th:text="${todo.taskName}"></span> <span th:text="${todo.status}"></span></li>
+        <li th:if="${todo.status != 'COMPLETE'}" class="item">Todo Object:
+            <span th:text="${todo.taskId}"></span>
+            <span th:text="${todo.taskName}"></span>
+            <span th:text="${todo.status}"></span></li>
+            <button><a th:href="@{/todo/delete(taskId=${todo.taskId})}">Delete</a></button>
+    </ul>
+</div>
+
+<hr>
+<a th:href="@{/second}">To second</a>
+
+<hr>
 
 </body>
+<script>
+    let item = document.getElementsByClassName("item");
+    console.log(item);
+
+    for (let i = 0; i < item.length; i++) {
+        item[i].addEventListener("click", () => {
+            item[i].classList.toggle("finished");
+        });
+    }
+
+</script>
 </html>

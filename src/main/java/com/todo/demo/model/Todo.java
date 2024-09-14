@@ -7,12 +7,18 @@ import lombok.Data;
 
 @Data
 public class Todo {
+    private Integer taskId;
 
     @NotBlank(message = "task cannot be null")
     @Size(min = 2, max = 100, message = "task need to be in right size")
-    private String task;
+    private String taskName;
 
-    @NotBlank(message = "email cant be blank")
-    @Email(message = "please provide valid email")
+//    @NotBlank(message = "email cant be blank")
+//    @Email(message = "please provide valid email")
     private String email;
+
+    private String status;
+
+    public Todo() {
+    }
 }
